@@ -1,5 +1,6 @@
-let playerScore = 0
-let computerScore = 0
+let playerScore = 0;
+let computerScore = 0;
+let endGame = 0;
 function computerPlay() {
     let random = Math.random()
     if (random <= 0.33) {
@@ -62,40 +63,42 @@ function playRound(computer, player) {
     }
 }
 function playerPlay() {
-    if (playerScore == 5 || computerScore == 5) {
-        const buttons = document.querySelectorAll("Button").disabled=true;
-        const buttonsArr = Array.from(buttons);
-        buttonsArr.forEach((button) => button.disabled=True);
-        const endMsg = document.querySelector('.endMsg');
-        endMsg.textContent = (playerScore == 5) ? "You won!" : 
-        "Computer wins. You lost!";
-        const playAgaindiv = document.querySelector('.playAgain');
-        const playAgain = document.createElement('button');
-        playAgain.style.cssText = 
-        `
-                font-family: Helvetica, Arial, sans-serif;
-                font-weight: 600;
-                background-color: rgba(255, 255, 0, 0.47);
-                border: 2px, solid, white;
-                width: 150px;
-                height: 80px;
-                border-radius: 20px;
-                color: rgb(26, 26, 26);
-                font-size: large;
-                transition-duration: 0.4s;
-                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-        `
-        playAgain.textContent = 'Play Again?';
-        playAgain.id = 'playAgainButton';
-        playAgaindiv.appendChild(playAgain);
-        // const playAgainbutton = document.querySelectorAll('button.playAgain');
-        playAgain.addEventListener('click', reset)
-
-    } else {
-   playRound(computerPlay(), this.id);
-    }
+   
+   if ((playerScore == 5 || computerScore == 5) && !endGame) {
+    endGame = 1;
+    const buttons = document.querySelectorAll("Button").disabled=true;
+    const buttonsArr = Array.from(buttons);
+    buttonsArr.forEach((button) => button.disabled=True);
+    const endMsg = document.querySelector('.endMsg');
+    endMsg.textContent = (playerScore == 5) ? "You won!" : 
+    "Computer wins. You lost!";
+    const playAgaindiv = document.querySelector('.playAgain');
+    const playAgain = document.createElement('button');
+    playAgain.style.cssText = 
+    `
+            font-family: Helvetica, Arial, sans-serif;
+            font-weight: 600;
+            background-color: rgba(255, 255, 0, 0.47);
+            border: 2px, solid, white;
+            width: 150px;
+            height: 80px;
+            border-radius: 20px;
+            color: rgb(26, 26, 26);
+            font-size: large;
+            transition-duration: 0.4s;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    `
+    playAgain.textContent = 'Play Again?';
+    playAgain.id = 'playAgainButton';
+    playAgaindiv.appendChild(playAgain);
+    // const playAgainbutton = document.querySelectorAll('button.playAgain');
+    playAgain.addEventListener('click', reset)
+} else if (!endGame) {
+    playRound(computerPlay(), this.id);
+}
 }
 function reset() {
+    endGame = 0;
     playerScore = 0;
     computerScore = 0;
     const computersc = document.querySelector('.computerscore');
@@ -111,22 +114,13 @@ function reset() {
     alert.textContent = "";
 
 }
-// function game() {
-//     playerScore = 0
-//     computerScore = 0
-    
-//     while (playerScore < 5 && computerScore < 5) {
-//     }
-//     let endMessage = (playerScore == 5) ? "You won!" : "Computer wins. You lost!"
-//     console.log(endMessage)
-// }
-
 const buttons = document.querySelectorAll('button');
 
 buttons.forEach((button) => {
     button.addEventListener('click', playerPlay)
+
 });
+buttons.forEach((button) => {
+    if (playerScore == 5 || computerScore == 5) button.removeEventListener('click', playerPlay);
 
-
-
-
+});
