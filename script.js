@@ -10,46 +10,76 @@ function computerPlay() {
         return "Scissors"
     }
 }
+function playerPoint(computer, player) {
+    playerScore++;
+    const playersc = document.querySelector('.playerscore');
+    playersc.textContent = parseInt(playerScore);
+    const alert = document.querySelector('.alert');
+    alert.textContent = `${player} beats ${computer}. You win!`
+}
+function computerPoint(computer, player) {
+    computerScore++;
+    const computersc = document.querySelector('.computerscore');
+    computersc.textContent = parseInt(computerScore);
+    const alert = document.querySelector('.alert');
+    alert.textContent = `${computer} beats ${player}. You lose!`;
+}
+function tie() {
+    const alert = document.querySelector('.alert');
+    alert.textContent = "It's a tie!";
+}
 function playRound(computer, player) {
+    if (playerScore == 5 || computerScore == 5) {
+        const endMsg = document.querySelector('.endMsg');
+        endMsg.textContent = (playerScore == 5) ? "You won!" : 
+        "Computer wins. You lost!";
+        (':button').prop('disabled', true); 
+        alert("Play Again?");
+        
+    }
     player = player.toLowerCase()
     player = player.charAt(0).toUpperCase() + player.slice(1)
     if (computer == "Rock" && player == "Scissors") {
-        computerScore++;
-        return `${computer} beats ${player}. You lose!`
+       computerPoint(computer, player);
     } else if (computer == "Rock" && player == "Paper") {
-        playerScore++;
-       return `${player} beats ${computer}. You win!`
+       playerPoint(computer, player);
     } else if (computer == "Rock" && player == "Rock") {
-        return "It's a tie!"
+        tie();
     } else if (computer == "Scissors" && player == "Rock") {
-       playerScore++;
-      return `${player} beats ${computer}. You win!`
+       playerPoint(computer, player);
     } else if (computer == "Scissors" && player == "Paper") {
-        computerScore++;
-        return `${computer} beats ${player}. You lose!`
+       computerPoint(computer, player);
     } else if (computer == "Scissors" && player == "Scissors") {
-        return "It's a tie!"
+        tie();
     } else if (computer == "Paper" && player == "Scissors") {
-       playerScore++;
-      return `${player} beats ${computer}. You win!`
+        playerPoint(computer, player);
     } else if (computer == "Paper" && player == "Rock") {
-        computerScore++;
-        return `${computer} beats ${player}. You lose!`
+      computerPoint(computer, player);
     } else if (computer == "Paper" && player == "Paper") {
-        return "It's a tie"
+        tie();
     } else {
         if (player != "Scissors" && player != "Rock" && player != "Paper") {
             return "Invalid input"
         }
     }
 }
-function game() {
-    playerScore = 0
-    computerScore = 0
-    while (playerScore < 5 && computerScore < 5) {
-        let player = prompt("Rock, paper, scissors?")
-        console.log(playRound(computerPlay(), player))
-    }
-    let endMessage = (playerScore == 5) ? "You won!" : "Computer wins. You lost!"
-    console.log(endMessage)
+function playerPlay() {
+   playRound(computerPlay(), this.id);
 }
+// function game() {
+//     playerScore = 0
+//     computerScore = 0
+    
+//     while (playerScore < 5 && computerScore < 5) {
+//     }
+//     let endMessage = (playerScore == 5) ? "You won!" : "Computer wins. You lost!"
+//     console.log(endMessage)
+// }
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', playerPlay)
+});
+
+
+
