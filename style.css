@@ -93,8 +93,10 @@ button:active {
     font-size: 40px;
     font-weight: bold;
     text-decoration: underline;
+    margin-right: 30px;
 }
 .playAgain {
+    display: inline;
     margin-top: 20px;
     display: flex;
     justify-content: center;
