@@ -118,13 +118,11 @@ function reset() {
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', function() {
-        if ((playerScore == 4 || computerScore == 4) && !endGame) {
+        if (!endGame) {
             playRound(computerPlay(), this.id);
             if (playerScore == 5 || computerScore == 5) {
                 end();
             }
-        } else if (!endGame) {
-            playRound(computerPlay(), this.id);
         }
     })
 });
