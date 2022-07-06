@@ -58,10 +58,6 @@ function playRound(computer, player) {
         computerPoint(computer, player);
     } else if (computer == "Paper" && player == "Paper") {
         tie();
-    } else {
-        if (player != "Scissors" && player != "Rock" && player != "Paper") {
-            return "Invalid input"
-        }
     }
 }
 
